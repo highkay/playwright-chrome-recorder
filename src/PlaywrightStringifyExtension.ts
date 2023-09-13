@@ -13,6 +13,9 @@ import {
 export class PlaywrightStringifyExtension extends StringifyExtension {
   async beforeAllSteps(out: LineWriter, flow: Schema.UserFlow): Promise<void> {
     out
+      .appendLine("import { test, expect } from '@playwright/test';")
+      .startBlock()
+    out
       .appendLine(`test.describe(${formatAsJSLiteral(flow.title)}, () => {`)
       .startBlock()
     out
@@ -25,6 +28,7 @@ export class PlaywrightStringifyExtension extends StringifyExtension {
   }
 
   async afterAllSteps(out: LineWriter): Promise<void> {
+    out.endBlock().appendLine('await page.close();')
     out.endBlock().appendLine('});')
     out.endBlock().appendLine('});')
   }
@@ -146,7 +150,7 @@ export class PlaywrightStringifyExtension extends StringifyExtension {
     if (pressedKey in supportedRecorderKeys) {
       const keyValue = supportedRecorderKeys[pressedKey]
       out.appendLine(
-        `page.keyboard.down(${formatAsJSLiteral(`{${keyValue}}`)});`
+        `await page.keyboard.down(${formatAsJSLiteral(`${keyValue}`)});`
       )
     }
   }
