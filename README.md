@@ -1,14 +1,18 @@
 # playwright-chrome-recorder
 
+## 修改内容
+
 修改版插件，修复如下问题
 
 - 缺少import，目前手动添加，可以修改插件修复
 - 缺少page.close()，目前手动添加，可以修改插件修复
 - page.keyboard.down缺少await，并且key的内容加了额外的大括号，目前手动修复，可以修改插件修复
 
+## 打包
+
 打包直接使用[原版打包程序](https://github.com/AndrewUsher/playwright-recorder-extension)
 
-clone修改`package.json`，替换依赖到本地目录即可
+clone后修改`package.json`，替换依赖到本地目录即可
 
 ```json
 "dependencies": {
